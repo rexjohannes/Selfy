@@ -27,7 +27,7 @@ public class ToggleCommand extends Command {
             MessageUtils.editMessage("Error", "Module not found", Color.RED.getRGB(), event.getMessage());
             return;
         }
-        if(m.canBeUsed(Main.selfy.accountType)) {
+        if(!m.canBeUsed(Main.selfy.accountType)) {
             MessageUtils.editMessage("Error", "You need the rank '" + m.requiredAccountType.name() + "' or higher to access this command.", Color.RED.getRGB(), event.getMessage());
             return;
         }
