@@ -1,5 +1,6 @@
 package me.sirlennox.selfy.module;
 
+import me.sirlennox.selfy.AccountType;
 import me.sirlennox.selfy.Category;
 import me.sirlennox.selfy.utils.stat.MessageUtils;
 import org.javacord.api.event.Event;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 public class Module {
 
     public boolean autoStart;
-    public boolean onlyPremium;
+    public AccountType requiredAccountType;
     public String name;
     public String desc;
     public boolean toggled;
@@ -22,19 +23,19 @@ public class Module {
 
 
     public Module(String name, String desc, Category category) {
-        this(name, desc, category, false);
+        this(name, desc, category, AccountType.USER);
     }
 
 
-    public Module(String name, String desc, Category category, boolean onlyPremium) {
+    public Module(String name, String desc, Category category, AccountType requiredAccountType) {
         this.name = name;
         this.desc = desc;
         this.toggled = false;
         this.lastMS = 0;
         this.category = category;
-        this.onlyPremium = onlyPremium;
         this.settings = new ArrayList<>();
         this.autoStart = false;
+        this.requiredAccountType = requiredAccountType;
         this.initSettings();
     }
 
@@ -69,6 +70,11 @@ public class Module {
     public void onDisable(MessageCreateEvent e) {
 
     }
+
+    public boolean canBeUsed(AccountType type) {
+        return type.getLevel() >= this.requiredAccountType.getLevel();
+    }
+
 
 
     public void toggle(MessageCreateEvent e) {

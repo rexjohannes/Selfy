@@ -13,6 +13,7 @@ package me.sirlennox.selfy.command.commands;
 
 import me.sirlennox.selfy.Category;
 import me.sirlennox.selfy.command.Command;
+import me.sirlennox.selfy.utils.stat.MathUtils;
 import me.sirlennox.selfy.utils.stat.MessageUtils;
 import org.javacord.api.event.message.MessageCreateEvent;
 
@@ -39,7 +40,7 @@ public class URLScreenshotCommand extends Command {
         try {
             String url = api + args[0];
             //System.out.println(url);
-            MessageUtils.editMessage(url, event.getMessage());
+            MessageUtils.editMessage("URL Screenshot", url, null, MathUtils.getRandomColor().getRGB(), event.getMessage());
         } catch (Exception e) {
             MessageUtils.editMessage("Error", "An error occurred while trying to take screenshot of website.", Color.RED.getRGB(), event.getMessage());
         }

@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import jdk.internal.dynalink.beans.StaticClass;
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
-import org.python.core.PyList;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -15,7 +14,6 @@ import java.util.Map;
 public class ScriptUtils {
 
     public static Object convertIntoJavaObject(Object scriptObj) {
-        if(scriptObj instanceof PyList) return new ArrayList<Object>((PyList) scriptObj);
         if (scriptObj instanceof ScriptObjectMirror) {
             ScriptObjectMirror scriptObjectMirror = (ScriptObjectMirror) scriptObj;
             if (scriptObjectMirror.isArray()) {

@@ -24,6 +24,7 @@ import me.sirlennox.selfy.Main;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ConfigCommand extends Command {
     public ConfigCommand() {
@@ -46,7 +47,7 @@ public class ConfigCommand extends Command {
 
             if(foundAction == ConfigAction.READ) {
 
-                ArrayList<Setting> configObjects = Main.selfy.configManager.configs;
+                List<Setting> configObjects = Main.selfy.configRegistry.getRegistered();
                 StringBuilder stringBuilder = new StringBuilder();
                 if(configObjects.isEmpty()) stringBuilder.append("Nothing to see here.");
                 for(Setting configObject : configObjects) {
@@ -83,7 +84,7 @@ public class ConfigCommand extends Command {
 
                         String key = splitObject[0];
                         String value = splitObject[1];
-                        Setting obj = Main.selfy.configManager.getConfigByName(key);
+                        Setting obj = Main.selfy.configRegistry.getConfigByName(key);
                         if(obj == null) {
                             MessageUtils.editMessage(event.getMessage(), "Error", "Configuration not found!", Color.RED.getRGB());
                             return;

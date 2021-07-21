@@ -16,9 +16,6 @@ import java.nio.file.Files;
 
 public class Utils {
 
-    public static boolean hasAccessToPremiumFeatures() {
-        return Main.selfy.accountType == AccountType.PREMIUM;
-    }
 
 
     public static JSONObject resolveIP(String ip) throws Exception {

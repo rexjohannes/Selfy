@@ -13,10 +13,8 @@ package me.sirlennox.selfy.script;
 
 
 import me.sirlennox.selfy.Category;
-import me.sirlennox.selfy.Main;
 import me.sirlennox.selfy.Selfy;
 import me.sirlennox.selfy.module.Module;
-import org.javacord.api.event.Event;
 import org.javacord.api.event.message.MessageCreateEvent;
 
 import javax.script.ScriptEngine;
@@ -80,7 +78,7 @@ public class ModuleScript extends Script {
                 }
             };
             this.setVar("module", module);
-            selfy.moduleManager.registerModule(module);
+            selfy.moduleRegistry.register(module);
         }catch (Exception e) {
             e.printStackTrace();
             System.err.println("Error while trying to create module from script: " + file.getName());

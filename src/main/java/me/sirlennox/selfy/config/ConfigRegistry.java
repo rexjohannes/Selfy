@@ -13,6 +13,7 @@ package me.sirlennox.selfy.config;
 
 import me.sirlennox.selfy.Selfy;
 import me.sirlennox.selfy.module.Setting;
+import me.sirlennox.selfy.registry.Registry;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -22,16 +23,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 
-public class ConfigManager {
+public class ConfigRegistry extends Registry<Setting> {
 
-    public ArrayList<Setting> configs;
-
-    public Selfy selfy;
     public File file;
-    public ConfigManager(File file, Selfy selfy) {
+    public ConfigRegistry(File file, Selfy selfy) {
+        super(selfy);
         this.file = file;
-        this.selfy = selfy;
-        this.configs = new ArrayList<>();
         this.init();
         try {
             this.read((JSONObject) JSONValue.parse(new FileReader(file)));
@@ -40,18 +37,10 @@ public class ConfigManager {
     }
 
     public void init() {
-    }
 
-    public void registerConfig(Setting setting) {
-        this.configs.add(setting);
     }
-
-    public void registerConfig(String name, Object value) {
-        this.configs.add(new Setting(name, value));
-    }
-
     public Setting getConfigByName(String name) {
-        return this.configs.stream().filter(c -> c.name.equalsIgnoreCase(name)).findFirst().orElse(null);
+        return this.getRegistered().stream().filter(c -> c.name.equalsIgnoreCase(name)).findFirst().orElse(null);
     }
 
 
@@ -59,7 +48,7 @@ public class ConfigManager {
         JSONObject obj = new JSONObject();
         JSONArray configsArray = new JSONArray();
 
-            for(Setting setting : this.configs) {
+            for(Setting setting : this.getRegistered()) {
                 JSONObject stg = new JSONObject();
                 stg.put("name", setting.name);
                 stg.put("value", setting.value);
@@ -75,7 +64,7 @@ public class ConfigManager {
         JSONArray configsArray = (JSONArray) obj.get("configs");
         for(Object o : configsArray) {
             JSONObject stg = (JSONObject) o;
-            for(Setting s : configs) {
+            for(Setting s : this.getRegistered()) {
                 if(s.name.equalsIgnoreCase((String) stg.get("name"))) {
                     s.value = stg.get("value");
                 }

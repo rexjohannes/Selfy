@@ -1,15 +1,14 @@
 package me.sirlennox.selfy;
 
 import me.sirlennox.selfy.command.Command;
-import me.sirlennox.selfy.command.CommandManager;
-import me.sirlennox.selfy.config.ConfigManager;
-import me.sirlennox.selfy.module.ModuleManager;
+import me.sirlennox.selfy.command.CommandRegistry;
+import me.sirlennox.selfy.config.ConfigRegistry;
+import me.sirlennox.selfy.module.ModuleRegistry;
 import me.sirlennox.selfy.script.ScriptManager;
 import me.sirlennox.selfy.utils.nonstatic.ModulesConfigUtils;
 import me.sirlennox.selfy.utils.stat.CommandUtils;
 import me.sirlennox.selfy.utils.stat.MessageUtils;
 import me.sirlennox.selfy.utils.stat.ModuleUtils;
-import me.sirlennox.selfy.utils.stat.Utils;
 import org.javacord.api.AccountType;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
@@ -25,17 +24,17 @@ import java.util.concurrent.CompletionException;
 
 // Selfy initialize class
 public class Selfy {
-    public final String VERSION;
-    public final String NAME;
-    public final String PREFIX;
-    private final String TOKEN;
-    public final ArrayList<String> DEVELOPERS;
-    public final DiscordApi API;
-    public final CommandManager commandManager;
-    public final ModuleManager moduleManager;
+    public final String version;
+    public final String name;
+    public final String prefix;
+    private final String token;
+    public final ArrayList<String> developers;
+    public final DiscordApi api;
+    public final CommandRegistry commandRegistry;
+    public final ModuleRegistry moduleRegistry;
     public final me.sirlennox.selfy.AccountType accountType;
     public final long startedMS;
-    public ConfigManager configManager;
+    public final ConfigRegistry configRegistry;
 
     //Utils
     public CommandUtils commandUtils;
@@ -54,17 +53,17 @@ public class Selfy {
     // This will initialize Selfy
     public Selfy(String name, String version, String prefix, String token, ArrayList<String> developers, me.sirlennox.selfy.AccountType accountType) throws LoginException {
 
-        this.NAME = name;
-        this.VERSION = version;
-        this.PREFIX = prefix;
-        this.TOKEN = token;
-        this.DEVELOPERS = developers;
+        this.name = name;
+        this.version = version;
+        this.prefix = prefix;
+        this.token = token;
+        this.developers = developers;
         this.dir = this.createDir(new File(System.getProperty("user.home"), name));
         this.configFile = new File(this.dir, "config.json");
-        this.configManager = new ConfigManager(this.configFile, this);
-        this.commandManager = new CommandManager();
+        this.configRegistry = new ConfigRegistry(this.configFile, this);
+        this.commandRegistry = new CommandRegistry(this);
         this.commandUtils = new CommandUtils(this);
-        this.moduleManager = new ModuleManager();
+        this.moduleRegistry = new ModuleRegistry(this);
         this.moduleUtils = new ModuleUtils(this);
         this.modulesConfigUtils = new ModulesConfigUtils(this);
         try {
@@ -76,7 +75,7 @@ public class Selfy {
 
         this.scriptManager = new ScriptManager(new File(this.dir, "scripts"), this);
         try {
-            this.API = addEventListeners(buildBot(token));
+            this.api = addEventListeners(buildBot(token));
         }catch (CompletionException e) {
             throw new LoginException("Can't login to bot!");
         }
@@ -103,7 +102,7 @@ public class Selfy {
             fw.write(this.modulesConfigUtils.modulesToJSONObject().toJSONString());
             fw.close();
             fw = new FileWriter(this.configFile);
-            fw.write(this.configManager.configsToJSONObject().toJSONString());
+            fw.write(this.configRegistry.configsToJSONObject().toJSONString());
             fw.close();
         } catch (Exception e) {
 
@@ -132,23 +131,24 @@ public class Selfy {
     }
     // Gets the startup message
     public String getStartupMessage() {
-        return "Successfully started " + NAME + " " + getVersion() + " (by " + getDevelopers() + ") [on " + this.API.getYourself().getDiscriminatedName() + "]";
+        return "Successfully started " + name + " " + getVersion() + " (by " + getDevelopers() + ") [on " + this.api.getYourself().getDiscriminatedName() + "]";
     }
     // Add the event listeners
     public DiscordApi addEventListeners(DiscordApi api) {
-        api.addMessageCreateListener( e -> {
+        api.addMessageCreateListener(e -> {
             this.scriptManager.notifyAllScripts("onChatMessage", e);
-            this.moduleManager.modules.forEach(m -> {
+            this.moduleRegistry.getRegistered().forEach(m -> {
                 if(m.toggled) m.onChatMessage(e);
             });
-            if (e.getMessage().getAuthor().getId() == api.getYourself().getId()) {
+
+            if (e.getMessage().getAuthor() != null && api.getYourself() != null && e.getMessage().getAuthor().getId() == api.getYourself().getId()) {
                     onMessageSent(e);
             }
 
         });
         new Thread(() -> {
             while (true) {
-                moduleManager.modules.forEach(m -> {
+                this.moduleRegistry.getRegistered().forEach(m -> {
                     if(m.toggled) m.onUpdate();
                 });
             }
@@ -158,10 +158,10 @@ public class Selfy {
     // This method will be called if a message got sent from you
     public void onMessageSent(MessageCreateEvent event) {
         String msg = event.getMessageContent();
-        boolean isCommand = msg.startsWith(PREFIX);
+        boolean isCommand = msg.startsWith(prefix);
         this.scriptManager.notifyAllScripts("onSendMessage", event, isCommand);
         if(isCommand) {
-            String msgWithoutPrefix = msg.substring(PREFIX.length());
+            String msgWithoutPrefix = msg.substring(prefix.length());
             this.onCommand(msgWithoutPrefix, event);
         }
     }
@@ -170,10 +170,10 @@ public class Selfy {
         String[] args = new String[cmdStr.split(" ").length - 1];
         if (cmdStr.split(" ").length - 1 >= 0) System.arraycopy(cmdStr.split(" "), 1, args, 0, cmdStr.split(" ").length - 1);
         String c = cmdStr.split(" ")[0];
-        for(Command cmd : this.commandManager.commands) {
-            if(cmd.cmd.equalsIgnoreCase(c) || isAliasOfCommand(cmd, c)) {
-                if(cmd.onlyPremium && !Utils.hasAccessToPremiumFeatures()) {
-                    MessageUtils.editMessage("Error", "This command is premium only and you don't have premium!", Color.RED.getRGB(), event.getMessage());
+        for(Command cmd : this.commandRegistry.getRegistered()) {
+            if(cmd.name.equalsIgnoreCase(c) || isAliasOfCommand(cmd, c)) {
+                if(!cmd.canBeUsed(this.accountType)) {
+                    MessageUtils.editMessage("Error", "You need the rank '" + cmd.requiredAccountType.name() + "' or higher to access this command.", Color.RED.getRGB(), event.getMessage());
                     return;
                 }
                 cmd.onCommand(args, event);
@@ -185,7 +185,7 @@ public class Selfy {
 
     // Gets the version with the v- prefix
     public String getVersion() {
-        return "v" + this.VERSION;
+        return "v" + this.version;
     }
 
     // Checks if the string is an alias of the command
@@ -200,7 +200,7 @@ public class Selfy {
 
     // Gets the developers of the selfbot, joined with \",\"
     public String getDevelopers() {
-        return String.join(", ", DEVELOPERS);
+        return String.join(", ", developers);
     }
 
 

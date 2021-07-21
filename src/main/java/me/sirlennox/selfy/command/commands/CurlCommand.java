@@ -11,11 +11,9 @@ import org.json.simple.JSONValue;
 
 import java.io.IOException;
 
-public class ViewCommand extends Command {
-    public ViewCommand() {
-        super("view", "View a website", Category.UTIL);
-        this.aliases.add("curl");
-        this.aliases.add("get");
+public class CurlCommand extends Command {
+    public CurlCommand() {
+        super("curl", "Curl a website", Category.UTIL);
     }
 
     @Override

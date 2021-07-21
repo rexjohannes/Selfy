@@ -12,7 +12,6 @@
 package me.sirlennox.selfy.script;
 
 import me.sirlennox.selfy.Category;
-import me.sirlennox.selfy.Main;
 import me.sirlennox.selfy.Selfy;
 import me.sirlennox.selfy.command.Command;
 import me.sirlennox.selfy.utils.stat.ScriptUtils;
@@ -43,7 +42,7 @@ public class CommandScript extends Script {
                     } catch (Throwable t) {
                         if(t instanceof NoSuchMethodException) return;
                         t.printStackTrace();
-                        System.err.println("Error while trying to execute command: " + this.cmd);
+                        System.err.println("Error while trying to execute command: " + this.name);
                     }
                 }
             };
@@ -53,7 +52,7 @@ public class CommandScript extends Script {
             } catch (Throwable t) {}
             if(command.aliases == null)  command.aliases = new ArrayList<>();
             this.setVar("command", command);
-            selfy.commandManager.registerCommand(command);
+            selfy.commandRegistry.register(command);
         }catch (Exception e) {
             e.printStackTrace();
             System.err.println("Error while trying to create command: " + file.getName());

@@ -22,7 +22,7 @@ public class JokeCommand extends Command {
             JSONObject joke = (JSONObject) JSONValue.parse(HttpUtils.get("https://official-joke-api.appspot.com/jokes/random/"));
             MessageUtils.editMessage(event.getMessage(), joke.get("setup").toString(), "||" + joke.get("punchline") + "||", MathUtils.getRandomColor().getRGB());
         } catch (Exception exception) {
-            MessageUtils.editMessage(event.getMessage(), "Joke", "Something went wrong while trying to get a funny joke for you.", Color.RED.getRGB());
+            MessageUtils.editMessage(event.getMessage(), "Joke", "Something went wrong while trying to get a joke.", Color.RED.getRGB());
         }
     }
 }

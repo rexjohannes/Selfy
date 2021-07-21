@@ -11,8 +11,6 @@
 
 package me.sirlennox.selfy.module;
 
-import me.sirlennox.selfy.documentation.Documentated;
-
 // A class for settings
 public class Setting {
 

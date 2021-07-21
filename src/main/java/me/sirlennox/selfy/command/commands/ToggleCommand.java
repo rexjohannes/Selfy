@@ -27,8 +27,8 @@ public class ToggleCommand extends Command {
             MessageUtils.editMessage("Error", "Module not found", Color.RED.getRGB(), event.getMessage());
             return;
         }
-        if(m.onlyPremium && !Utils.hasAccessToPremiumFeatures()) {
-            MessageUtils.editMessage("Error", "This module is premium only and you don't have premium!", Color.RED.getRGB(), event.getMessage());
+        if(m.canBeUsed(Main.selfy.accountType)) {
+            MessageUtils.editMessage("Error", "You need the rank '" + m.requiredAccountType.name() + "' or higher to access this command.", Color.RED.getRGB(), event.getMessage());
             return;
         }
         m.toggle(event);

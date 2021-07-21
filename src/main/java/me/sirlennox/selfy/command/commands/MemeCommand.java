@@ -11,9 +11,7 @@ import java.awt.*;
 
 public class MemeCommand extends Command {
     public MemeCommand() {
-        super("memes", "Get memes", Category.FUN);
-        this.aliases.add("memez");
-        this.aliases.add("meme");
+        super("meme", "Get a meme", Category.FUN);
     }
 
     @Override

@@ -29,7 +29,7 @@ public class ModulesConfigUtils {
     public JSONObject modulesToJSONObject() {
         JSONObject obj = new JSONObject();
         JSONArray modules = new JSONArray();
-        for(Module m : selfy.moduleManager.modules) {
+        for(Module m : selfy.moduleRegistry.getRegistered()) {
             JSONObject module = new JSONObject();
             JSONArray settings = new JSONArray();
             for(Setting setting : m.settings) {

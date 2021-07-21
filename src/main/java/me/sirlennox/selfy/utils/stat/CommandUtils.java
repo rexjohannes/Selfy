@@ -23,7 +23,7 @@ public class CommandUtils {
     }
 
     public Command getCommandByName(String name) {
-        return selfy.commandManager.commands.stream().filter(m -> m.cmd.equalsIgnoreCase(name)).findFirst().orElse(null);
+        return selfy.commandRegistry.getRegistered().stream().filter(m -> m.name.equalsIgnoreCase(name)).findFirst().orElse(null);
     }
 
 

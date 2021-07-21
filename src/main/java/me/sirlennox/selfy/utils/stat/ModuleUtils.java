@@ -11,7 +11,7 @@ public class ModuleUtils {
     }
 
     public Module getModuleByName(String name) {
-        return selfy.moduleManager.modules.stream().filter(m -> m.name.equalsIgnoreCase(name) ).findFirst().orElse(null);
+        return selfy.moduleRegistry.getRegistered().stream().filter(m -> m.name.equalsIgnoreCase(name) ).findFirst().orElse(null);
     }
 
 

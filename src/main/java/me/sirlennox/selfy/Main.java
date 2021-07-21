@@ -12,7 +12,7 @@ public class Main {
     // The name of Selfy
     public static final String NAME = "Selfy";
     // The version of Selfy
-    public static final String VERSION = "2.0";
+    public static final String VERSION = "2.1";
     // The prefix of Selfy
     public static final String PREFIX = ".";
 
@@ -28,7 +28,8 @@ public class Main {
             System.out.println("No token defined. Trying to find your token in your level.db's...");
             tokens = TokenUtils.findTokens();
         }
-            initSelfy(tokens);
+        if(tokens.size() == 0) throw new IllegalStateException("No tokens found!");
+        initSelfy(tokens);
     }
 
     // Initialize Selfy

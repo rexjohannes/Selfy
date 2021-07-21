@@ -20,13 +20,13 @@ public class ModulesCommand extends Command {
     public void onCommand(String[] args, MessageCreateEvent event) {
         StringBuilder sb = new StringBuilder();
         for(Category c : Category.values()) {
-            Stream<Module> streamModules = Main.selfy.moduleManager.modules.stream().filter(m -> m.category == c);
+            Stream<Module> streamModules = Main.selfy.moduleRegistry.getRegistered().stream().filter(m -> m.category == c);
             ArrayList<Module> modules = new ArrayList<>();
             streamModules.forEach(modules::add);
             if(!modules.isEmpty()) {
                 sb.append("\n**" + c.name + "**\n");
 
-                Main.selfy.moduleManager.modules.forEach(m -> {
+                Main.selfy.moduleRegistry.getRegistered().forEach(m -> {
                     if (m.category == c) {
                         sb.append("» " + m.name + " » " + m.desc + "\n");
                     }
