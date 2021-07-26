@@ -12,7 +12,7 @@ public class Main {
     // The name of Selfy
     public static final String NAME = "Selfy";
     // The version of Selfy
-    public static final String VERSION = "2.1";
+    public static final String VERSION = "2.1.1";
     // The prefix of Selfy
     public static final String PREFIX = ".";
 
