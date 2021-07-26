@@ -28,10 +28,11 @@ public class ModuleScript extends Script {
     public Module module;
 
 
+
     public ModuleScript(File file, ArrayList<Class<?>> classes, ScriptEngine engine, Selfy selfy) throws FileNotFoundException, ScriptException {
         super(file, classes, engine, selfy);
         try {
-            this.module = new Module((String) getVar("name"), (String) getVar("desc"), Category.valueOf((String) getVar("category"))) {
+            this.module = new Module(selfy, (String) getVar("name"), (String) getVar("desc"), Category.valueOf((String) getVar("category"))) {
                 @Override
                 public void onEnable(MessageCreateEvent event) {
                     try {

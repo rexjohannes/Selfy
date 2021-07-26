@@ -1,6 +1,7 @@
 package me.sirlennox.selfy.command.commands;
 
 import me.sirlennox.selfy.Category;
+import me.sirlennox.selfy.Selfy;
 import me.sirlennox.selfy.command.Command;
 import me.sirlennox.selfy.utils.stat.ArrayUtils;
 import me.sirlennox.selfy.utils.stat.MessageUtils;
@@ -9,8 +10,8 @@ import org.javacord.api.event.message.MessageCreateEvent;
 import java.io.IOException;
 
 public class ASCIICommand extends Command {
-    public ASCIICommand() {
-        super("ascii", "Send an ASCII message", Category.FUN);
+    public ASCIICommand(Selfy selfy) {
+        super(selfy, "ascii", "Send an ASCII message", Category.FUN);
     }
 
     @Override

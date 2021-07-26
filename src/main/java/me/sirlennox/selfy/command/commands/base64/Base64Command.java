@@ -12,6 +12,7 @@
 package me.sirlennox.selfy.command.commands.base64;
 
 import me.sirlennox.selfy.Category;
+import me.sirlennox.selfy.Selfy;
 import me.sirlennox.selfy.command.Command;
 import me.sirlennox.selfy.utils.stat.ArrayUtils;
 import me.sirlennox.selfy.utils.stat.MathUtils;
@@ -21,8 +22,8 @@ import org.javacord.api.event.message.MessageCreateEvent;
 import java.util.Base64;
 
 public class Base64Command extends Command {
-    public Base64Command() {
-        super("base64", "Encode/Decode Base64", Category.UTIL);
+    public Base64Command(Selfy selfy) {
+        super(selfy, "base64", "Encode/Decode Base64", Category.UTIL);
         this.aliases.add("b64");
     }
 ;

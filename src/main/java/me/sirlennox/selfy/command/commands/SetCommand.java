@@ -13,6 +13,7 @@ package me.sirlennox.selfy.command.commands;
 
 import me.sirlennox.selfy.Category;
 import me.sirlennox.selfy.Main;
+import me.sirlennox.selfy.Selfy;
 import me.sirlennox.selfy.command.Command;
 import me.sirlennox.selfy.module.Module;
 import me.sirlennox.selfy.module.Setting;
@@ -25,8 +26,8 @@ import java.awt.*;
 
 
 public class SetCommand extends Command {
-    public SetCommand() {
-        super("set", "Set a setting of a module", Category.UTIL);
+    public SetCommand(Selfy selfy) {
+        super(selfy, "set", "Set a setting of a module", Category.UTIL);
     }
 
     @Override
@@ -38,7 +39,7 @@ public class SetCommand extends Command {
         String moduleName = args[0];
         String settingName = args[1];
         String valueStr = ArrayUtils.bindString(args, 2, args.length);
-        Module module = Main.selfy.moduleUtils.getModuleByName(moduleName);
+        Module module = selfy.moduleUtils.getModuleByName(moduleName);
         if(module == null) {
             MessageUtils.editMessage("Error", "Module not found (Type .modules for a list of modules)", Color.RED.getRGB(), event.getMessage());
             return;

@@ -12,6 +12,7 @@
 package me.sirlennox.selfy.command.commands;
 
 import me.sirlennox.selfy.Category;
+import me.sirlennox.selfy.Selfy;
 import me.sirlennox.selfy.command.Command;
 import me.sirlennox.selfy.utils.stat.MathUtils;
 import me.sirlennox.selfy.utils.stat.MessageUtils;
@@ -20,8 +21,8 @@ import org.javacord.api.event.message.MessageCreateEvent;
 import java.awt.*;
 
 public class URLScreenshotCommand extends Command {
-    public URLScreenshotCommand() {
-        super("urlscreenshot", "Take a screenshot of an URL", Category.UTIL);
+    public URLScreenshotCommand(Selfy selfy) {
+        super(selfy, "urlscreenshot", "Take a screenshot of an URL", Category.UTIL);
         this.aliases.add("screenshoturl");
     }
 

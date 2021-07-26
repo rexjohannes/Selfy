@@ -4,19 +4,14 @@ import me.sirlennox.selfy.utils.stat.TokenUtils;
 
 import javax.security.auth.login.LoginException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 
 // Main class where the instance of selfy will be created
 public class Main {
     // The instance of Selfy
     public static Selfy selfy;
-    // The name of Selfy
-    public static final String NAME = "Selfy";
-    // The version of Selfy
-    public static final String VERSION = "2.1.1";
-    // The prefix of Selfy
-    public static final String PREFIX = ".";
 
-    // The main / start class
     public static void main(String[] args) {
 
         System.setProperty("org.apache.commons.logging.Log",
@@ -34,14 +29,10 @@ public class Main {
 
     // Initialize Selfy
     public static void initSelfy(ArrayList<String> tokens) {
-        ArrayList<String> devs = new ArrayList<>();
-        devs.add("SirLennox");
-        devs.add("f1nniboy");
         for(String token : tokens) {
             try {
-                selfy = new Selfy(NAME, VERSION, PREFIX, token, devs, AccountType.PREMIUM);
+                selfy = new Selfy("Selfy", "2.2", ".", token, new ArrayList<>(Arrays.asList("SirLennox", "f1nniboy")), AccountType.PREMIUM);
                 System.out.println(selfy.getStartupMessage());
-
                 break;
             }catch (LoginException e) {
                 selfy = null;

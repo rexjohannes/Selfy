@@ -2,6 +2,7 @@ package me.sirlennox.selfy.module;
 
 import me.sirlennox.selfy.AccountType;
 import me.sirlennox.selfy.Category;
+import me.sirlennox.selfy.Selfy;
 import me.sirlennox.selfy.utils.stat.MessageUtils;
 import org.javacord.api.event.Event;
 import org.javacord.api.event.message.MessageCreateEvent;
@@ -18,16 +19,17 @@ public class Module {
     public boolean toggled;
     public long lastMS;
     public Category category;
+    protected final Selfy selfy;
     public ArrayList<Setting> settings;
 
 
 
-    public Module(String name, String desc, Category category) {
-        this(name, desc, category, AccountType.USER);
+    public Module(Selfy selfy, String name, String desc, Category category) {
+        this(selfy, name, desc, category, AccountType.USER);
     }
 
 
-    public Module(String name, String desc, Category category, AccountType requiredAccountType) {
+    public Module(Selfy selfy, String name, String desc, Category category, AccountType requiredAccountType) {
         this.name = name;
         this.desc = desc;
         this.toggled = false;
@@ -36,6 +38,7 @@ public class Module {
         this.settings = new ArrayList<>();
         this.autoStart = false;
         this.requiredAccountType = requiredAccountType;
+        this.selfy = selfy;
         this.initSettings();
     }
 
@@ -105,15 +108,7 @@ public class Module {
         return s;
     }
 
-
-
-
-
-
-
-
-
-
-
-
+    public Selfy getSelfy() {
+        return this.selfy;
+    }
 }

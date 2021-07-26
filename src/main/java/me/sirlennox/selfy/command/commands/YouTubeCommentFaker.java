@@ -12,6 +12,7 @@
 package me.sirlennox.selfy.command.commands;
 
 import me.sirlennox.selfy.Category;
+import me.sirlennox.selfy.Selfy;
 import me.sirlennox.selfy.command.Command;
 import me.sirlennox.selfy.utils.stat.ArrayUtils;
 import me.sirlennox.selfy.utils.stat.MessageUtils;
@@ -21,8 +22,8 @@ import org.javacord.api.event.message.MessageCreateEvent;
 import java.awt.*;
 
 public class YouTubeCommentFaker extends Command {
-    public YouTubeCommentFaker() {
-        super("youtube", "Fake a youtube comment", Category.FUN);
+    public YouTubeCommentFaker(Selfy selfy) {
+        super(selfy, "youtube", "Fake a youtube comment", Category.FUN);
         this.aliases.add("ytcomment");
         this.aliases.add("yt");
     }

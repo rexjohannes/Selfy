@@ -28,6 +28,7 @@ public class Script {
 
     public ScriptEngine engine;
     public File file;
+    private Selfy selfy;
 
     public Script(File file, ArrayList<Class<?>> classes, ScriptEngine engine, Selfy selfy) throws FileNotFoundException, ScriptException {
         this.file = file;

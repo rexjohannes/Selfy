@@ -12,6 +12,7 @@
 package me.sirlennox.selfy.command.commands;
 
 import me.sirlennox.selfy.Category;
+import me.sirlennox.selfy.Selfy;
 import me.sirlennox.selfy.command.Command;
 import me.sirlennox.selfy.utils.stat.HttpUtils;
 import me.sirlennox.selfy.utils.stat.MathUtils;
@@ -22,8 +23,8 @@ import java.awt.*;
 import java.io.IOException;
 
 public class ProxiesCommand extends Command {
-    public ProxiesCommand() {
-        super("proxies", "Get proxies", Category.UTIL);
+    public ProxiesCommand(Selfy selfy) {
+        super(selfy, "proxies", "Get proxies", Category.UTIL);
     }
 
     @Override

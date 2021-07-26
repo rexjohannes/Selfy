@@ -12,6 +12,7 @@
 package me.sirlennox.selfy.command.commands;
 
 import me.sirlennox.selfy.Category;
+import me.sirlennox.selfy.Selfy;
 import me.sirlennox.selfy.command.Command;
 import me.sirlennox.selfy.utils.stat.MathUtils;
 import me.sirlennox.selfy.utils.stat.MessageUtils;
@@ -27,8 +28,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ClearCommand extends Command {
-    public ClearCommand() {
-        super("clear", "Clear messages", Category.UTIL);
+    public ClearCommand(Selfy selfy) {
+        super(selfy, "clear", "Clear messages", Category.UTIL);
     }
 
     @Override

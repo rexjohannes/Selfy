@@ -27,7 +27,7 @@ public class Selfy {
     public final String version;
     public final String name;
     public final String prefix;
-    private final String token;
+    public final String token;
     public final ArrayList<String> developers;
     public final DiscordApi api;
     public final CommandRegistry commandRegistry;

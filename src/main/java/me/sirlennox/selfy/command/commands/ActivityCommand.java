@@ -14,6 +14,7 @@
 package me.sirlennox.selfy.command.commands;
 
 import me.sirlennox.selfy.Category;
+import me.sirlennox.selfy.Selfy;
 import me.sirlennox.selfy.command.Command;
 import me.sirlennox.selfy.utils.stat.MathUtils;
 import me.sirlennox.selfy.utils.stat.MessageUtils;
@@ -23,8 +24,8 @@ import org.javacord.api.event.message.MessageCreateEvent;
 import java.util.Arrays;
 
 public class ActivityCommand extends Command {
-    public ActivityCommand() {
-        super("activity", "Set your activity / richpresence", Category.FUN);
+    public ActivityCommand(Selfy selfy) {
+        super(selfy, "activity", "Set your activity / richpresence", Category.FUN);
         this.aliases.add("setactivity");
         this.aliases.add("setpresence");
         this.aliases.add("setrpc");

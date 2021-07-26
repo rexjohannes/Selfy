@@ -1,14 +1,15 @@
 package me.sirlennox.selfy.command.commands;
 
 import me.sirlennox.selfy.Category;
+import me.sirlennox.selfy.Selfy;
 import me.sirlennox.selfy.command.Command;
 import me.sirlennox.selfy.utils.stat.MathUtils;
 import me.sirlennox.selfy.utils.stat.MessageUtils;
 import org.javacord.api.event.message.MessageCreateEvent;
 
 public class MediaCommand extends Command {
-    public MediaCommand() {
-        super("media", "Send media content in embed", Category.FUN);
+    public MediaCommand(Selfy selfy) {
+        super(selfy, "media", "Send media content in embed", Category.FUN);
     }
 
     @Override

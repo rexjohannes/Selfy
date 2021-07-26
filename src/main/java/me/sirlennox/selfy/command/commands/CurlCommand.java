@@ -1,6 +1,7 @@
 package me.sirlennox.selfy.command.commands;
 
 import me.sirlennox.selfy.Category;
+import me.sirlennox.selfy.Selfy;
 import me.sirlennox.selfy.command.Command;
 import me.sirlennox.selfy.utils.stat.HttpUtils;
 import me.sirlennox.selfy.utils.stat.MathUtils;
@@ -12,8 +13,8 @@ import org.json.simple.JSONValue;
 import java.io.IOException;
 
 public class CurlCommand extends Command {
-    public CurlCommand() {
-        super("curl", "Curl a website", Category.UTIL);
+    public CurlCommand(Selfy selfy) {
+        super(selfy, "curl", "Curl a website", Category.UTIL);
     }
 
     @Override

@@ -13,6 +13,7 @@ package me.sirlennox.selfy.command.commands;
 
 import me.sirlennox.selfy.Category;
 import me.sirlennox.selfy.Main;
+import me.sirlennox.selfy.Selfy;
 import me.sirlennox.selfy.command.Command;
 import me.sirlennox.selfy.module.Module;
 import me.sirlennox.selfy.module.Setting;
@@ -22,8 +23,8 @@ import org.javacord.api.event.message.MessageCreateEvent;
 import java.awt.*;
 
 public class SettingsCommand extends Command {
-    public SettingsCommand() {
-        super("settings", "Get all settings of a module", Category.UTIL);
+    public SettingsCommand(Selfy selfy) {
+        super(selfy, "settings", "Get all settings of a module", Category.UTIL);
     }
 
     @Override
@@ -32,7 +33,7 @@ public class SettingsCommand extends Command {
             sendUsage("<Module>", event);
             return;
         }
-        Module module = Main.selfy.moduleUtils.getModuleByName(args[0]);
+        Module module = selfy.moduleUtils.getModuleByName(args[0]);
 
         if(module == null) {
             MessageUtils.editMessage("Error", "Module not found (Type .modules for a list of modules)", Color.RED.getRGB(), event.getMessage());

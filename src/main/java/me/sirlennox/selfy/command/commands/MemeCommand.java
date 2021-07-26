@@ -1,6 +1,7 @@
 package me.sirlennox.selfy.command.commands;
 
 import me.sirlennox.selfy.Category;
+import me.sirlennox.selfy.Selfy;
 import me.sirlennox.selfy.command.Command;
 import me.sirlennox.selfy.utils.stat.MathUtils;
 import me.sirlennox.selfy.utils.stat.MessageUtils;
@@ -10,8 +11,8 @@ import org.javacord.api.event.message.MessageCreateEvent;
 import java.awt.*;
 
 public class MemeCommand extends Command {
-    public MemeCommand() {
-        super("meme", "Get a meme", Category.FUN);
+    public MemeCommand(Selfy selfy) {
+        super(selfy, "meme", "Get a meme", Category.FUN);
     }
 
     @Override

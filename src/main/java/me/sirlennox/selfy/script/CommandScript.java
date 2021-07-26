@@ -34,7 +34,7 @@ public class CommandScript extends Script {
     public CommandScript(File file, ArrayList<Class<?>> classes, ScriptEngine engine, Selfy selfy) throws FileNotFoundException, ScriptException {
         super(file, classes, engine, selfy);
         try {
-            command = new Command((String) getVar("cmd"),  (String) getVar("desc"), Category.valueOf((String) getVar("category"))) {
+            command = new Command(selfy, (String) getVar("cmd"),  (String) getVar("desc"), Category.valueOf((String) getVar("category"))) {
                 @Override
                 public void onCommand(String[] args, MessageCreateEvent e) {
                     try {

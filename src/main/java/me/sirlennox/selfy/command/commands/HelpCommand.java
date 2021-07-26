@@ -2,6 +2,7 @@ package me.sirlennox.selfy.command.commands;
 
 import me.sirlennox.selfy.Category;
 import me.sirlennox.selfy.Main;
+import me.sirlennox.selfy.Selfy;
 import me.sirlennox.selfy.command.Command;
 import me.sirlennox.selfy.utils.stat.ArrayUtils;
 import me.sirlennox.selfy.utils.stat.MessageUtils;
@@ -12,8 +13,8 @@ import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class HelpCommand extends Command {
-    public HelpCommand() {
-        super("help", "Help page", Category.UTIL);
+    public HelpCommand(Selfy selfy) {
+        super(selfy, "help", "Help page", Category.UTIL);
     }
 
     @Override
@@ -21,12 +22,12 @@ public class HelpCommand extends Command {
         StringBuilder sb = new StringBuilder();
         if(args.length == 0) {
             for(Category c : Category.values()) {
-                Stream<Command> streamCmds = Main.selfy.commandRegistry.getRegistered().stream().filter(m -> m.category == c);
+                Stream<Command> streamCmds = selfy.commandRegistry.getRegistered().stream().filter(m -> m.category == c);
                 ArrayList<Command> cmds = new ArrayList<>();
                 streamCmds.forEach(cmds::add);
                 if(!cmds.isEmpty()) {
                     sb.append("\n**" + c.name + "**\n");
-                    for (Command cmd : Main.selfy.commandRegistry.getRegistered()) {
+                    for (Command cmd : selfy.commandRegistry.getRegistered()) {
                         if(cmd.category == c) {
                             sb.append("**" + cmd.name + "** » " + cmd.desc + "\n");
                         }
@@ -37,7 +38,7 @@ public class HelpCommand extends Command {
 
             MessageUtils.editMessage("Help", sb.toString(), Color.DARK_GRAY.getRGB(), e.getMessage());
         }else {
-            Command command = Main.selfy.commandUtils.getCommandByName(args[0]);
+            Command command = selfy.commandUtils.getCommandByName(args[0]);
             if(command != null) {
                 sb.append("Command » `" + command.name + "`\n");
                 sb.append("Alias/es » `" +  getAliases(command) + "`\n");

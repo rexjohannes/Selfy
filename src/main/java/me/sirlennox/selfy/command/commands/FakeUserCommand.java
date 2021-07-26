@@ -1,6 +1,7 @@
 package me.sirlennox.selfy.command.commands;
 
 import me.sirlennox.selfy.Category;
+import me.sirlennox.selfy.Selfy;
 import me.sirlennox.selfy.command.Command;
 import me.sirlennox.selfy.utils.stat.MessageUtils;
 import org.javacord.api.entity.user.User;
@@ -9,8 +10,8 @@ import org.javacord.api.event.message.MessageCreateEvent;
 import java.awt.*;
 
 public class FakeUserCommand extends Command {
-    public FakeUserCommand() {
-        super("fakeuser", "Fake a user", Category.TROLL);
+    public FakeUserCommand(Selfy selfy) {
+        super(selfy, "fakeuser", "Fake a user", Category.TROLL);
     }
 
     @Override

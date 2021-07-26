@@ -24,18 +24,21 @@ public abstract class Command {
     // This is the category of the command
     public Category category;
 
+    protected Selfy selfy;
+
     public AccountType requiredAccountType;
 
     // This is the constructor of a command where you can specify the command, the description and the category
-    public Command( String name, String desc, Category category) {
-        this(name, desc, category, AccountType.USER);
+    public Command(Selfy selfy, String name, String desc, Category category) {
+        this(selfy, name, desc, category, AccountType.USER);
     }
     // This is the constructor of a command where you can specify the command, the description, the category and onlyPremium (if the command is premium only)
-    public Command(String name, String desc, Category category, AccountType requiredAccountType) {
+    public Command(Selfy selfy, String name, String desc, Category category, AccountType requiredAccountType) {
         this.name = name;
         this.desc = desc;
         this.requiredAccountType = requiredAccountType;
         this.category = category;
+        this.selfy = selfy;
     }
 
     // If the command got executed this method will be called. The parameters are the arguments of the command (splitted with \" \ and the event, so you can get the message, the channel and much more information about the event
@@ -43,7 +46,7 @@ public abstract class Command {
 
     // This is a simplified method to send usages. The parameters are: args (The args you have to specify) and the Message, because the method edit your message
     public void sendUsage(String args, Message msg) {
-        MessageUtils.editMessage("Usage", "Usage: " + Main.selfy.prefix + this.name + " " + args, Color.RED.getRGB(), msg);
+        MessageUtils.editMessage("Usage", "Usage: " + selfy.prefix + this.name + " " + args, Color.RED.getRGB(), msg);
     }
 
     // A method where you only have to specify the event and not the Message
@@ -54,6 +57,10 @@ public abstract class Command {
     // Returns true if the user has enoguht permissions to access this command
     public boolean canBeUsed(AccountType type) {
         return type.getLevel() >= this.requiredAccountType.getLevel();
+    }
+
+    public Selfy getSelfy() {
+        return this.selfy;
     }
 
 }

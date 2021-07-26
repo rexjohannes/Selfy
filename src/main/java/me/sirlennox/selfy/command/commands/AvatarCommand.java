@@ -12,6 +12,7 @@
 package me.sirlennox.selfy.command.commands;
 
 import me.sirlennox.selfy.Category;
+import me.sirlennox.selfy.Selfy;
 import me.sirlennox.selfy.command.Command;
 import me.sirlennox.selfy.utils.stat.MathUtils;
 import me.sirlennox.selfy.utils.stat.MessageUtils;
@@ -19,8 +20,8 @@ import org.javacord.api.entity.user.User;
 import org.javacord.api.event.message.MessageCreateEvent;
 
 public class AvatarCommand extends Command {
-    public AvatarCommand() {
-        super("avatar", "Get the avatar of an user", Category.UTIL);
+    public AvatarCommand(Selfy selfy) {
+        super(selfy, "avatar", "Get the avatar of an user", Category.UTIL);
     }
 
     @Override

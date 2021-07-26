@@ -1,6 +1,7 @@
 package me.sirlennox.selfy.command.commands;
 
 import me.sirlennox.selfy.Category;
+import me.sirlennox.selfy.Selfy;
 import me.sirlennox.selfy.command.Command;
 import me.sirlennox.selfy.utils.stat.MathUtils;
 import me.sirlennox.selfy.utils.stat.MessageUtils;
@@ -9,8 +10,8 @@ import org.javacord.api.event.message.MessageCreateEvent;
 import java.awt.*;
 
 public class RemoveActivityCommand extends Command {
-    public RemoveActivityCommand() {
-        super("removeactivity", "Remove your current activity / richpresence", Category.FUN);
+    public RemoveActivityCommand(Selfy selfy) {
+        super(selfy, "removeactivity", "Remove your current activity / richpresence", Category.FUN);
         this.aliases.add("unsetactivity");
         this.aliases.add("unsetpresence");
         this.aliases.add("unsetrpc");

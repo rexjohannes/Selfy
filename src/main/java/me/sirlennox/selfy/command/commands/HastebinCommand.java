@@ -1,6 +1,7 @@
 package me.sirlennox.selfy.command.commands;
 
 import me.sirlennox.selfy.Category;
+import me.sirlennox.selfy.Selfy;
 import me.sirlennox.selfy.command.Command;
 import me.sirlennox.selfy.utils.stat.ArrayUtils;
 import me.sirlennox.selfy.utils.stat.MessageUtils;
@@ -11,8 +12,8 @@ import java.awt.*;
 import java.io.IOException;
 
 public class HastebinCommand extends Command {
-    public HastebinCommand() {
-        super("hastebin", "Create a hastebin", Category.UTIL);
+    public HastebinCommand(Selfy selfy) {
+        super(selfy, "hastebin", "Create a hastebin", Category.UTIL);
     }
 
     @Override

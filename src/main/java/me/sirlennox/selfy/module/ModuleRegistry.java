@@ -15,7 +15,7 @@ public class ModuleRegistry extends Registry<Module> {
 
 
     public void init() {
-        register(new Bot4Everyone());
+        register(new Bot4Everyone(this.getSelfy()));
         this.startAutostart();
     }
 

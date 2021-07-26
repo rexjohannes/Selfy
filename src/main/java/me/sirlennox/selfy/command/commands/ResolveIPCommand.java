@@ -1,6 +1,7 @@
 package me.sirlennox.selfy.command.commands;
 
 import me.sirlennox.selfy.Category;
+import me.sirlennox.selfy.Selfy;
 import me.sirlennox.selfy.command.Command;
 import me.sirlennox.selfy.utils.stat.MessageUtils;
 import me.sirlennox.selfy.utils.stat.Utils;
@@ -11,8 +12,8 @@ import java.awt.*;
 
 
 public class ResolveIPCommand extends Command {
-    public ResolveIPCommand() {
-        super("resolveip", "Resolve an IP address", Category.UTIL);
+    public ResolveIPCommand(Selfy selfy) {
+        super(selfy, "resolveip", "Resolve an IP address", Category.UTIL);
         this.aliases.add("lookup");
         this.aliases.add("lookupip");
         this.aliases.add("iplookup");

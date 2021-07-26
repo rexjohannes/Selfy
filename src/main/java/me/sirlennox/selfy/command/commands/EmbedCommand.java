@@ -1,6 +1,7 @@
 package me.sirlennox.selfy.command.commands;
 
 import me.sirlennox.selfy.Category;
+import me.sirlennox.selfy.Selfy;
 import me.sirlennox.selfy.command.Command;
 import me.sirlennox.selfy.utils.stat.ArrayUtils;
 import me.sirlennox.selfy.utils.stat.MessageUtils;
@@ -9,8 +10,8 @@ import org.javacord.api.event.message.MessageCreateEvent;
 import java.awt.*;
 
 public class EmbedCommand extends Command {
-    public EmbedCommand() {
-        super("embed", "Send an embed message", Category.FUN);
+    public EmbedCommand(Selfy selfy) {
+        super(selfy, "embed", "Send an embed message", Category.FUN);
     }
 
     @Override

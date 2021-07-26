@@ -3,6 +3,7 @@ package me.sirlennox.selfy.command;
 import me.sirlennox.selfy.Selfy;
 import me.sirlennox.selfy.command.commands.*;
 import me.sirlennox.selfy.command.commands.base64.Base64Command;
+import me.sirlennox.selfy.command.commands.ping.PingCommand;
 import me.sirlennox.selfy.registry.Registry;
 
 public class CommandRegistry extends Registry<Command> {
@@ -13,32 +14,34 @@ public class CommandRegistry extends Registry<Command> {
     }
 
     public void init() {
-        register(new EmbedCommand());
-        register(new HelpCommand());
-        register(new ASCIICommand());
-        register(new ToggleCommand());
-        register(new ModulesCommand());
-        register(new AdCommand());
-        register(new ResolveIPCommand());
-        register(new UptimeCommand());
-        register(new MemeCommand());
-        register(new AvatarCommand());
-        register(new HastebinCommand());
-        register(new MediaCommand());
-        register(new Base64Command());
-        register(new YouTubeCommentFaker());
+        register(new EmbedCommand(this.getSelfy()));
+        register(new HelpCommand(this.getSelfy()));
+        register(new ASCIICommand(this.getSelfy()));
+        register(new ToggleCommand(this.getSelfy()));
+        register(new ModulesCommand(this.getSelfy()));
+        register(new AdCommand(this.getSelfy()));
+        register(new ResolveIPCommand(this.getSelfy()));
+        register(new UptimeCommand(this.getSelfy()));
+        register(new MemeCommand(this.getSelfy()));
+        register(new AvatarCommand(this.getSelfy()));
+        register(new HastebinCommand(this.getSelfy()));
+        register(new MediaCommand(this.getSelfy()));
+        register(new Base64Command(this.getSelfy()));
+        register(new YouTubeCommentFaker(this.getSelfy()));
         //registerCommand(new FakeUserCommand());
-        register(new ActivityCommand());
-        register(new RemoveActivityCommand());
-        register(new JokeCommand());
-        register(new CurlCommand());
-        register(new AnimalCommand());
-        register(new ClearCommand());
-        register(new URLScreenshotCommand());
-        register(new SetCommand());
-        register(new SettingsCommand());
-        register(new ConfigCommand());
-        register(new ProxiesCommand());
+        register(new ActivityCommand(this.getSelfy()));
+        register(new RemoveActivityCommand(this.getSelfy()));
+        register(new JokeCommand(this.getSelfy()));
+        register(new CurlCommand(this.getSelfy()));
+        register(new AnimalCommand(this.getSelfy()));
+        register(new ClearCommand(this.getSelfy()));
+        register(new URLScreenshotCommand(this.getSelfy()));
+        register(new SetCommand(this.getSelfy()));
+        register(new SettingsCommand(this.getSelfy()));
+        register(new ConfigCommand(this.getSelfy()));
+        register(new ProxiesCommand(this.getSelfy()));
+        register(new HypeSquadCommand(this.getSelfy()));
+        register(new PingCommand(this.getSelfy()));
     }
 
 }

@@ -12,6 +12,7 @@
 package me.sirlennox.selfy.command.commands;
 
 import me.sirlennox.selfy.Category;
+import me.sirlennox.selfy.Selfy;
 import me.sirlennox.selfy.command.Command;
 import me.sirlennox.selfy.config.ConfigAction;
 import me.sirlennox.selfy.module.Setting;
@@ -27,8 +28,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ConfigCommand extends Command {
-    public ConfigCommand() {
-        super("config", "WRITE / READ a config", Category.UTIL);
+    public ConfigCommand(Selfy selfy) {
+        super(selfy, "config", "WRITE / READ a config", Category.UTIL);
         this.aliases.add("cfg");
         this.aliases.add("conf");
     }
@@ -47,7 +48,7 @@ public class ConfigCommand extends Command {
 
             if(foundAction == ConfigAction.READ) {
 
-                List<Setting> configObjects = Main.selfy.configRegistry.getRegistered();
+                List<Setting> configObjects = selfy.configRegistry.getRegistered();
                 StringBuilder stringBuilder = new StringBuilder();
                 if(configObjects.isEmpty()) stringBuilder.append("Nothing to see here.");
                 for(Setting configObject : configObjects) {
@@ -84,7 +85,7 @@ public class ConfigCommand extends Command {
 
                         String key = splitObject[0];
                         String value = splitObject[1];
-                        Setting obj = Main.selfy.configRegistry.getConfigByName(key);
+                        Setting obj = selfy.configRegistry.getConfigByName(key);
                         if(obj == null) {
                             MessageUtils.editMessage(event.getMessage(), "Error", "Configuration not found!", Color.RED.getRGB());
                             return;
