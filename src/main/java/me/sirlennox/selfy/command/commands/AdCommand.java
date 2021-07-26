@@ -19,9 +19,8 @@ public class AdCommand extends Command {
         StringBuilder sb = new StringBuilder();
         sb.append("I am running **" + Main.selfy.name + " " + Main.selfy.getVersion() + "**\n");
         sb.append("With this program you can add some really nice commands and modules to discord.\n");
-        sb.append("Only type in " + Main.selfy.prefix + "help to get a view of all commands!\n");
         sb.append("Made by: **" + Main.selfy.getDevelopers() + "**\n");
-        sb.append("[Our website](http://comming-soon.online)");
+        sb.append("[Project Site](https://github.com/SirLennox/Selfy)");
         MessageUtils.editMessage(Main.selfy.name + " " + Main.selfy.getVersion(), sb.toString(), Color.DARK_GRAY.getRGB(), event.getMessage());
     }
 }
