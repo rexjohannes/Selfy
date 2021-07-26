@@ -20,10 +20,10 @@ A discord selfbot.
 
 ## Notes
 
-The default prefix is: **.**
+The default prefix is: `.`
 
-For help type in. **.help**
+For help type in. `.help`
 
-##Contact Us
+## Contact Us
 
 [Discord](https://discord.gg/bzfBWhSvYs)
